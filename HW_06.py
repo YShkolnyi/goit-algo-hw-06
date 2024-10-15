@@ -28,17 +28,17 @@ class Record:
         self.phones.append(Phone(phone))
 
     def remove_phone(self,phone):
-        self.phones.remove(phone)
+        self.phones.remove(Phone(phone)) #V02 - замінив строку на об'єкт класу Phone
     
     def edit_phone(self,old_phone,new_phone):
         try:
-            self.phones[self.phones.index(old_phone)]=Phone(new_phone)
+            self.phones[self.phones.index(Phone(old_phone))]=Phone(new_phone)  #V02 - замінив строку на об'єкт класу Phone
         except ValueError:
             pass
 
     def find_phone(self,phone):
         if phone in self.phones:
-            return phone
+            return Phone(phone) #V02 - замінив строку на об'єкт класу Phone
         else:
             return None
 
