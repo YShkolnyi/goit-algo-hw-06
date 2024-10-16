@@ -28,19 +28,24 @@ class Record:
         self.phones.append(Phone(phone))
 
     def remove_phone(self,phone):
-        self.phones.remove(Phone(phone)) #V02 - замінив строку на об'єкт класу Phone
+        for i in self.phones: #V03 - перебираємо елементи списку.
+            if str(i) == phone: #V03 - зводимо все до str і шукаємо відповідність.
+                self.phones.remove(i) #V03 - видаляємо елемент списку класу Phone
     
     def edit_phone(self,old_phone,new_phone):
         try:
-            self.phones[self.phones.index(Phone(old_phone))]=Phone(new_phone)  #V02 - замінив строку на об'єкт класу Phone
+            for i in self.phones: #V03 - перебираємо елементи списку.
+                if str(i) == old_phone: #V03 - зводимо все до str і шукаємо відповідність.
+                    index = self.phones.index(i) #V03 - якщо є відповідність, то дізнаємось індекс оригінального екземпляра класу Phone.
+                    self.phones[index] = Phone (new_phone) #V03 - знаючи індекс замінюємо один об'єкт Phone на інший.
         except ValueError:
             pass
 
     def find_phone(self,phone):
-        if phone in self.phones:
-            return Phone(phone) #V02 - замінив строку на об'єкт класу Phone
-        else:
-            return None
+        for i in self.phones: #V03 - перебираємо елементи списку.
+            if str(i) == phone: #V03 - зводимо все до str і шукаємо відповідність.
+                return Phone(phone) #V02 - замінив строку на об'єкт класу Phone.  #V03 - якщо вони однакові, то замість шукати за індексом, можна перетворити строку в об'єкт класу Phone. Виведення від цього не зміниться.
+        return None
 
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
@@ -84,6 +89,11 @@ john = book.find("John")
 john.edit_phone("1234567890", "1112223333")
 
 print(john)  # Виведення: Contact name: John, phones: 1112223333; 5555555555
+
+# Видалення номеру телефону
+john.remove_phone('1112223333')
+
+print(john) # Виведення: Contact name: John, phones: 5555555555
 
 # Пошук конкретного телефону у записі John
 found_phone = john.find_phone("5555555555")
