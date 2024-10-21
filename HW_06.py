@@ -32,17 +32,14 @@ class Record:
             if i.value == phone: #V03 - зводимо все до str і шукаємо відповідність. #V04 - str(i) замінено на i.value
                 self.phones.remove(i) #V03 - видаляємо елемент списку класу Phone
     
-    def edit_phone(self,old_phone,new_phone):
-        try:
-            for i in self.phones: #V03 - перебираємо елементи списку.
-                if i.value == old_phone: #V03 - зводимо все до str і шукаємо відповідність.  #V04 - str(i) замінено на i.value
-                    index = self.phones.index(i) #V03 - якщо є відповідність, то дізнаємось індекс оригінального екземпляра класу Phone.
-                    self.phones[index] = Phone (new_phone) #V03 - знаючи індекс замінюємо один об'єкт Phone на інший.
-                    break #V04 - якщо відповідний телефон знайдено і замінено, то далі for може не ітерувати.
-            else: #V04 - цей else виконується, якщо цикл for добіг кінця і не наткнувся на break під час виконання. Тобто помилка виникне, якщо old_phone не буде знайдено в self.phones.
-                raise ValueError (f"This phone {old_phone} doesn't exist in address book.")
-        except ValueError as er:
-            print(f'Error: {er}')
+    def edit_phone(self,old_phone,new_phone): #V05 - видалено try-except
+        for i in self.phones: #V03 - перебираємо елементи списку.
+            if i.value == old_phone: #V03 - зводимо все до str і шукаємо відповідність.  #V04 - str(i) замінено на i.value
+                index = self.phones.index(i) #V03 - якщо є відповідність, то дізнаємось індекс оригінального екземпляра класу Phone.
+                self.phones[index] = Phone (new_phone) #V03 - знаючи індекс замінюємо один об'єкт Phone на інший.
+                break #V04 - якщо відповідний телефон знайдено і замінено, то далі for може не ітерувати.
+        else: #V04 - цей else виконується, якщо цикл for добіг кінця і не наткнувся на break під час виконання. Тобто помилка виникне, якщо old_phone не буде знайдено в self.phones.
+            raise ValueError (f"This phone {old_phone} doesn't exist in address book.")
 
     def find_phone(self,phone):
         for i in self.phones: #V03 - перебираємо елементи списку.
