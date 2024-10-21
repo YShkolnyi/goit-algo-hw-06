@@ -103,3 +103,4 @@ print(f"{john.name}: {found_phone}")  # Виведення: John: 5555555555
 book.delete("Jane")
 
 # V06
+#V07
